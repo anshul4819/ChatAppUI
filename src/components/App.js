@@ -5,7 +5,7 @@ import MessagePanel from './MessagePanel';
 import NewMessageToUser from './NewMessageToUser';
 import '../styles/App.css';
 
-const ENDPOINT = "http://localhost:3000";
+const ENDPOINT = process.env.BACKEND_HOSTNAME;
 
 function App() {
     const [messages, setMessages] = useState({});
