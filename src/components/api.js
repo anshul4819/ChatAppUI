@@ -1,4 +1,3 @@
-// src/utils/api.js
 export const sendMessage = async (endpoint, sender, receiver, content) => {
     try {
         const response = await fetch(`${endpoint}/messages`, {

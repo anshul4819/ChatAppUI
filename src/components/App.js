@@ -5,8 +5,8 @@ import MessagePanel from './MessagePanel';
 import NewMessageToUser from './NewMessageToUser';
 import '../styles/App.css';
 
-const ENDPOINT = process.env.BACKEND_HOSTNAME;
-
+const ENDPOINT = "https://chatapp-52bs.onrender.com"
+console.log("Environment variable: ", process.env.REACT_APP_API_URL);
 function App() {
     const [messages, setMessages] = useState({});
     const [selectedSender, setSelectedSender] = useState('');
