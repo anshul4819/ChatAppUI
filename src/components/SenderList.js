@@ -1,4 +1,6 @@
 import React from 'react';
+import classNames from 'classnames';
+import '../styles/App.css';
 
 function SenderList({ messages, setSelectedSender, selectedSender }) {
     console.log("Data is inside SenderList:", messages);

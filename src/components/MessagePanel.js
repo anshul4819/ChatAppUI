@@ -5,13 +5,6 @@ import '../styles/App.css';
 
 
 function MessagePanel({ messages, sender, currUser, endpoint, setMessages }) {
-    console.log(
-
-        "Data in MessagePanel:", messages
-    )
-    console.log(
-        "In MessagePanel  ", messages[sender]
-    )
     const [message, setMessage] = useState('');
 
     const handleSendMessage = async () => {
@@ -30,22 +23,27 @@ function MessagePanel({ messages, sender, currUser, endpoint, setMessages }) {
     };
 
     if (!sender) {
-        return <div>Please select a person to view messages.</div>;
+        return <div className="message-panel">Please select a person to view messages.</div>;
     }
 
     return (
         <div className="message-panel">
-            <input
-                type="text"
-                placeholder="Message"
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-            />
-            <button onClick={handleSendMessage}>Send</button>
             <div className="messages">
                 {Array.isArray(messages[sender]) && messages[sender].map((msg, index) => 
                     <Message key={index} sender={msg.sender} msg={msg.content} timestamp={msg.timestamp} currUser={currUser} />
                 )}
+            </div>
+            
+            <div className="input-container">
+                <input
+                    type="text"
+                    placeholder="Type a message"
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
+                />
+                <div className="send-button-container">
+                    <button onClick={handleSendMessage}>Send</button>
+                </div>
             </div>
         </div>
     );

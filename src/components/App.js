@@ -3,10 +3,10 @@ import socketIOClient from 'socket.io-client';
 import SenderList from './SenderList';
 import MessagePanel from './MessagePanel';
 import NewMessageToUser from './NewMessageToUser';
+import classNames from 'classnames';
 import '../styles/App.css';
 
-const ENDPOINT = "https://chatapp-52bs.onrender.com"
-console.log("Environment variable: ", process.env.REACT_APP_API_URL);
+const ENDPOINT = "http://localhost:3000"
 function App() {
     const [messages, setMessages] = useState({});
     const [selectedSender, setSelectedSender] = useState('');
@@ -18,7 +18,6 @@ function App() {
     
         if (isCurrentUserSet) {
             socket.on('connect', () => {
-                console.log('Connected to server');
                 socket.emit('join', currUser);
             });
 
@@ -32,7 +31,6 @@ function App() {
             socket.on('all_messages', (data) => {
                 setMessages(data);
             });
-            console.log("Data is :", messages)
         }
 
         return () => {
@@ -48,9 +46,9 @@ function App() {
 
     return (
         <div className="App">
-            <h1>Hi {currUser}</h1>
+            <h1 className="centered">Hi {currUser}</h1>
             {!isCurrentUserSet ? (
-                <div>
+                <div className={classNames('full-width', 'centered')}>
                     <input
                         type="text"
                         placeholder="Enter your name"
@@ -60,15 +58,15 @@ function App() {
                     <button onClick={handleSetCurrentUser}>Set Current User</button>
                 </div>
             ) : (
-                <>
-                    <div>
+                <div className="full-width">
+                    <div className="centered">
                         <NewMessageToUser currUser={currUser} endpoint={ENDPOINT} setMessages={setMessages} />
                     </div>
                     <div className="chat-container">
                         <SenderList messages={messages} setSelectedSender={setSelectedSender} selectedSender={selectedSender} />
                         <MessagePanel messages={messages} sender={selectedSender} currUser={currUser} endpoint={ENDPOINT} setMessages={setMessages} />
                     </div>
-                </>
+                </div>
             )}
         </div>
     );
